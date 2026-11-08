@@ -130,7 +130,8 @@ let L=localStorage.getItem("kk_lang")||"dv";
 /* placeholder image (inline SVG) - replace src with real images */
 const ph=(color,label)=>"data:image/svg+xml;utf8,"+encodeURIComponent(
  `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='${color}'/><stop offset='1' stop-color='#111'/></linearGradient></defs><rect width='800' height='500' fill='url(#g)'/><circle cx='400' cy='230' r='70' fill='none' stroke='#fff' stroke-opacity='.4' stroke-width='6'/><path d='M360 260l30-35 25 25 20-20 35 30z' fill='#fff' fill-opacity='.5'/><text x='400' y='400' font-family='sans-serif' font-size='34' fill='#fff' fill-opacity='.6' text-anchor='middle'>${label}</text></svg>`);
-const img=s=>`<img src="${ph(s.img,'SAMPLE IMAGE')}" alt="">`;
+/* free sample photos from picsum.photos (swap src with your own images); falls back to the inline placeholder if offline */
+const img=s=>`<img src="https://picsum.photos/seed/kankan${s.img.slice(1)}/800/500" loading="lazy" alt="" onerror="this.onerror=null;this.src='${ph(s.img,'SAMPLE IMAGE')}'">`;
 const card=s=>`<a class="card" href="#"><div class="th">${img(s)}</div><div class="time">${UI[L].ago(s.h)}</div><h4>${s[L]}</h4></a>`;
 const item=s=>`<a class="item" href="#"><div class="th">${img(s)}</div><div><div class="time">${UI[L].ago(s.h)}</div><h4>${s[L]}</h4></div></a>`;
 function render(){
